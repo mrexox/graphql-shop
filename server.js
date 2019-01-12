@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { ApolloServer, gql } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
-const cors = require('cors');
 
 // Some fake data
 const items = [
@@ -54,7 +53,7 @@ const server = new ApolloServer({
 
 // Initialize the Express app
 const app = express();
-app.use(cors());
+
 
 server.applyMiddleware({ app, path: "/graphql" });
 
