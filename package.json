@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "nodemon client.js",
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "graphql"
@@ -19,11 +21,15 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "got": "^9.5.1",
     "graphql": "^14.0.2",
     "graphql-tools": "^4.0.3",
+    "koa": "^2.6.2",
+    "koa-static": "^5.0.0",
     "mongoose": "^5.4.3"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "nodemon": "^1.18.9"
   }
 }

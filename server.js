@@ -1,3 +1,5 @@
+const got = require('got');
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ApolloServer, gql } = require('apollo-server-express');
@@ -6,6 +8,7 @@ const { makeExecutableSchema } = require('graphql-tools');
 // Some fake data
 const items = [
     {
+        id: 1,
         price: 16000.00,
         name: 'Apple Watch',
         description: 'Smart watches from Apple',
@@ -13,6 +16,7 @@ const items = [
         available: true,
     },
     {
+        id: 2,
         price: 12000.00,
         name: 'Samsung Watch',
         description: 'Smart watches from Samsung',
@@ -20,6 +24,7 @@ const items = [
         available: false,
     },
     {
+        id: 3,
         price: 9700.00,
         name: 'Xiaomi Watch',
         description: 'Smart watches from Xiaomi',
@@ -32,6 +37,7 @@ const items = [
 const typeDefs = gql`
   type Query { items(currency: String): [Item] }
   type Item {
+    id: Int,
     price: Float,
     name: String,
     description: String,
@@ -59,6 +65,7 @@ const server = new ApolloServer({
 
 // Initialize the Express app
 const app = express();
+app.use(cors());
 
 server.applyMiddleware({ app, path: "/graphql" });
 
@@ -70,14 +77,24 @@ app.listen({ port: 3000 }, () => {
 
 // Helpers
 
-function changeCurrency(items, currency) {
+async function changeCurrency(origItems, currency) {
+    let items = [];
+
     currency = currency || 'rub';
     
     // Fetching currency from CRB and changing it in response
-    // ...
-    let rate = 1;
+    let rbcResponse = await got('https://www.cbr-xml-daily.ru/daily_json.js', { json: true });
+    let rate;
+    if (currency == 'rub') {
+        rate = 1;
+    } else {
+        rate = rbcResponse.body.Valute[currency.toUpperCase()].Value;
+    }
 
-    for (let i = 0; i < items.length; ++i) {
+    for (let i = 0; i < origItems.length; ++i) {
+        items[i] = {};
+        Object.assign(items[i], origItems[i]);
+
         if (currency != 'rub') {
             items[i].price = items[i].price / rate;
         }

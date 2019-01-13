@@ -1,0 +1,9 @@
+.container {
+    padding: 0 300px 0 300px;
+    align-content: center;
+}
+
+.container__items {
+    border: 1px solid #cccccc;
+    display: none;
+}
