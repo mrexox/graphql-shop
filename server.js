@@ -78,6 +78,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: { 
       items: async(parent, args) => {
+            // !NODB!
             // Don't want to use database: uncomment this line
             // let items = ITEMS.map(a => Object.assign({}, a));
             
