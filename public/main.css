@@ -6,4 +6,45 @@
 .container__items {
     border: 1px solid #cccccc;
     display: none;
+    min-width: 300px;
+}
+
+.item {
+    margin: 3px;
+    padding: 10px;
+}
+
+.item__name {
+    display: block;
+    font-size: 20px;
+}
+
+.item__description {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.item__price {
+    display: block;
+}
+
+.currencies {
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+    width: 200px;
+}
+
+.change-currency {
+    margin: auto;
+    margin-top: 15px;
+    border: 1px solid #cccccc;
+    text-align: center;
+    width: 200px;
+}
+
+.change-currency:hover {
+    cursor: pointer;
+    border-color: #999;
+    background-color: #eeeeee;
 }
