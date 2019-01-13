@@ -41,6 +41,7 @@ function loadItems(onSuccess, onError) {
 
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(xhr.responseText);
             onSuccess(xhr.responseText);
         } else if (this.readyState == 4 && this.status != 200) {
             onError();
@@ -80,7 +81,7 @@ function changeCurrencies(response) {
     for (var i = 0; i < itemElements.length; i++) {
         var id = itemElements[i].getAttribute("data-id");
         var item = items.find(function(el) {return el.id == id});
-        
+
         if (item === undefined) {
             // There's no element in database anymore
             itemElements[i].style.display = "none";
